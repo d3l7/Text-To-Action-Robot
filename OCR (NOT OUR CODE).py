@@ -111,3 +111,65 @@ def knn(X_train, y_train, X_test, k=3):
         y_pred.append(top_candidate)
     print()
     return y_pred
+
+def get_garment_from_label(label):
+    return [
+        'T-shirt/top',
+        'Trouser',
+        'Pullover',
+        'Dress',
+        'Coat',
+        'Sandal',
+        'Shirt',
+        'Sneaker',
+        'Bag',
+        'Ankle boot',
+    ][label]
+
+
+def main():
+    n_train = 1000
+    n_test = 10
+    k = 7
+    print(f'Dataset: {DATASET}')
+    print(f'n_train: {n_train}')
+    print(f'n_test: {n_test}')
+    print(f'k: {k}')
+    X_train = read_images(TRAIN_DATA_FILENAME, n_train)
+    y_train = read_labels(TRAIN_LABELS_FILENAME, n_train)
+    X_test = read_images(TEST_DATA_FILENAME, n_test)
+    y_test = read_labels(TEST_LABELS_FILENAME, n_test)
+
+    if DEBUG:
+        # Write some images out just so we can see them visually.
+        for idx, test_sample in enumerate(X_test):
+            write_image(test_sample, f'{TEST_DIR}{idx}.png')
+        # Load in the `our_test.png` we drew ourselves!
+        # X_test = [read_image(f'{DATA_DIR}our_test.png')]
+        # y_test = [5]
+
+    X_train = extract_features(X_train)
+    X_test = extract_features(X_test)
+
+    y_pred = knn(X_train, y_train, X_test, k)
+
+    accuracy = sum([
+        int(y_pred_i == y_test_i)
+        for y_pred_i, y_test_i
+        in zip(y_pred, y_test)
+    ]) / len(y_test)
+
+    if DATASET == 'fashion-mnist':
+        garments_pred = [
+            get_garment_from_label(label)
+            for label in y_pred
+        ]
+        print(f'Predicted garments: {garments_pred}')
+    else:
+        print(f'Predicted labels: {y_pred}')
+
+    print(f'Accuracy: {accuracy * 100}%')
+
+
+if __name__ == '__main__':
+    main()
