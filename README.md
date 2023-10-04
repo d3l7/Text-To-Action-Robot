@@ -1,4 +1,3 @@
-# alexa but better
-this is a readme
+# text-to-action robot
 
-`goals`
+## functionality
