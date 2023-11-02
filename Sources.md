@@ -21,4 +21,5 @@ it puts the file on the directory that you are in
 In this case /home/robot
 
 sftp robot@<robotip>
+
 put {filename.extension}
