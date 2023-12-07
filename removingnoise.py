@@ -4,7 +4,7 @@ import numpy as np
 import pytesseract 
 import cv2
 
-filename = '3_python-ocr.jpg'
+filename = 'toremovenoise.jpg'
 img = np.array(Image.open(filename))
 data = cv2.imread(filename)
 
@@ -15,10 +15,13 @@ img = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)[1]
 img = cv2.GaussianBlur(img, (1,1), 0)
 
 text = pytesseract.image_to_string(img)
+
 cv2.imwrite('aaa.jpg', img)
 data2 = cv2.imread('aaa.jpg')
+
 results1 = pytesseract.image_to_data(data, output_type=Output.DICT)
 results2 = pytesseract.image_to_data(data2, output_type=Output.DICT)
+
 print(results1)
 print(results2)
 
