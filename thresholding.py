@@ -14,6 +14,8 @@ titles = ['Original Image', 'Global Thresholding (v = 127)',
             'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
 images = [img, th1, th2, th3]
 
+cv.imwrite('b.jpg', th3)
+
 for i in range(4):
     plt.subplot(2,2,i+1),plt.imshow(images[i],'gray')
     plt.title(titles[i])
