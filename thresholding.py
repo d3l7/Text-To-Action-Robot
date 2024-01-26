@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv.imread('download.jpg', cv.IMREAD_GRAYSCALE)
+img = cv.imread('NewPicture1.jpg', cv.IMREAD_GRAYSCALE)
 assert img is not None, "file could not be read, check with os.path.exists()"
 img = cv.medianBlur(img,5)
 ret,th1 = cv.threshold(img,127,255,cv.THRESH_BINARY)
@@ -14,7 +14,7 @@ titles = ['Original Image', 'Global Thresholding (v = 127)',
             'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
 images = [img, th1, th2, th3]
 
-cv.imwrite('b.jpg', th3)
+cv.imwrite('b.jpg', th1)
 
 for i in range(4):
     plt.subplot(2,2,i+1),plt.imshow(images[i],'gray')
